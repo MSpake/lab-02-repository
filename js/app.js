@@ -43,7 +43,7 @@ const getCreatureData = () => {
 
 const checkKeywords = function(){
   let selection = $(this).val();
-  $('div').each(function() {
+  $('div:not(#creature-container)').each(function() {
     if(selection){
       if(!$(this).hasClass(selection)){
         $(this).hide();
