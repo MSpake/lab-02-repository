@@ -13,9 +13,11 @@ function Creature(creature){
 
 Creature.prototype.render = function(){
   const container = $('#creature-container').html();
-  $('body').append(`<div id="${this.id}" class="${this.keyword}"></div>`);
+  $('#all-creatures').append(`<div id="${this.id}" class="${this.keyword}"></div>`);
   $(`#${this.id}`).html(container);
   $(`#${this.id}`).find('img').attr('src', this.imageURL);
+  $(`#${this.id}`).find('h2').text(`${this.title}`);
+  $(`#${this.id}`).find('p').text(`${this.description}`);
 }
 
 const keywordDropdown = (allCreatureData) => {
