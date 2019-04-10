@@ -13,9 +13,19 @@ function Creature(creature){
 
 Creature.prototype.render = function(){
   const container = $('#creature-container').html();
-  $('body').append(`<div id="${this.id}"></div>`);
+  $('body').append(`<div id="${this.id}" class="${this.keyword}"></div>`);
   $(`#${this.id}`).html(container);
   $(`#${this.id}`).find('img').attr('src', this.imageURL);
+}
+
+const keywordDropdown = (allCreatureData) => {
+  const keywords = [];
+  allCreatureData.forEach(creature => {
+    if(!keywords.includes(creature.keyword)){
+      keywords.push(creature.keyword);
+    }
+  })
+  keywords.forEach(keyword => {$('#keyword-select').append(`<option value="${keyword}">${keyword}</option>`);});
 }
 
 const getCreatureData = () => {
@@ -23,9 +33,23 @@ const getCreatureData = () => {
     data => {
       data.forEach(creature => new Creature(creature));
       allCreatures.forEach(creature => creature.render());
+      keywordDropdown(data);
+      console.log(allCreatures.length);
     }
   )
 }
 
+const checkKeywords = function(){
+  let selection = $(this).val();
+  $('div').each(function() {
+    if(!$(this).hasClass(selection)){
+      $(this).hide();
+    } else {
+      $(this).show();
+    }
+  })
+}
+
 getCreatureData();
+$('#keyword-select').on('change', checkKeywords);
 
