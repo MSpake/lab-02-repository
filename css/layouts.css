@@ -4,13 +4,16 @@ header {
 
 section {
     margin-top: 20px;
+    overflow: hidden;
+    width: 90%;
+    margin: auto;
 }
 
 div {
     float: left;
-    width: 250px;
+    width: 20%;
     height: 360px;
-    padding: 20px;
+    padding: 0 15px;
 }
 
 img {
@@ -20,4 +23,5 @@ img {
 select{
     display: block;
     margin-top: 7px;
+    margin-bottom: 30px;
 }
