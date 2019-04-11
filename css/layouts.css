@@ -22,12 +22,19 @@ img {
     width: 100%;
 }
 
-select{
-    display: block;
+select {
     margin-top: 7px;
     margin-bottom: 30px;
 }
 
-button {
-    margin: 10px;
+nav {
+    display:flex;
+    justify-content: space-evenly;
+    height: 50px;
+    margin-bottom: 30px;
 }
+
+nav>fieldset {
+    width: 50%;
+}
+
