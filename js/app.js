@@ -10,6 +10,8 @@ function Creature(creature){
   this.imageURL = creature.image_url;
   this.keyword = creature.keyword;
   this.horns = creature.horns;
+  this.order = 1;
+  this.originalOrder;
   this.id = this.idCreator(creature);
   allCreatures.push(this);
 }
@@ -45,7 +47,10 @@ const getCreatureData = (json) => {
   $.get(`${json}`, 'json').then(
     data => {
       data.forEach(creature => new Creature(creature));
-      allCreatures.forEach(creature => creature.render());
+      allCreatures.forEach((creature, index) => {
+        creature.originalOrder = index;
+        creature.render();
+      });
       keywordDropdown(data);
       console.log(allCreatures.length);
     }
@@ -54,7 +59,7 @@ const getCreatureData = (json) => {
 
 const checkKeywords = function(){
   let selection = $(this).val();
-  $('div:not(#creature-container)').each(function() {
+  $('div').each(function() {
     if(selection){
       if(!$(this).hasClass(selection)){
         $(this).hide();
@@ -77,7 +82,41 @@ const swapImages = function(){
   }
 }
 
+const sortBy = function(){
+  $('#all-creatures').html('');
+  let selection = $(this).val();
+  if(selection){
+    allCreatures.sort((a,b) => {
+      switch(selection){
+      case 'horns':
+        a = a.horns;
+        b = b.horns;
+        break;
+      case 'alphabetically':
+        a = a.title.toLowerCase();
+        b = b.title.toLowerCase();
+        break;
+      }
+      if(a > b) return 1;
+      if(a < b) return -1;
+      return 0;
+    })
+    allCreatures.forEach((creature, index) => {
+      creature.order = index;
+      creature.render();
+    });} else {
+    console.log('here')
+    $('#all-creatures').html('');
+    allCreatures.forEach(creature => {
+      creature.order = creature.originalOrder;
+      creature.render();
+    });
+  }
+}
+
 getCreatureData('./data/page-1.json');
 $('#image-changer').on('click', swapImages);
 $('#keyword-select').on('change', checkKeywords);
+$('#sort').on('change', sortBy);
+
 

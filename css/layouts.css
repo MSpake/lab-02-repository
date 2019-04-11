@@ -14,7 +14,7 @@ section {
 
 div {
     width: 20%;
-    height: 360px;
+    height: 350px;
     padding: 0 15px;
 }
 
@@ -35,6 +35,6 @@ nav {
 }
 
 nav>fieldset {
-    width: 50%;
+    width: 30%;
 }
 

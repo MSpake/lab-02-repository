@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="./css/layouts.css">
     <link rel="stylesheet" href="./css/modules.css">
     <script id="creature-template" type="text/x-handlebars-template">
-    <div id="{{id}}" class="{{keyword}}">
+    <div id="{{id}}" class="{{keyword}} {{horns}}" style="order:{{order}}">
             <h2>{{title}}</h2>
             <img src="{{imageURL}}">
-            <p>{{description}}</p>
+            <!-- <p>{{description}}</p> -->
     </div>
     </script>
 </head>
@@ -26,6 +26,14 @@
                     <option value=""></option>
                 </select>
             </fieldset>
+            <fieldset>
+                    <legend>Sort by</legend>
+                    <select id="sort">
+                        <option value=""></option>
+                        <option value="horns">Number of horns</option>
+                        <option value="alphabetically">Alphabetically</option>
+                    </select>
+                </fieldset>
         <button id="image-changer">More Images!</button>
     </nav>
 
