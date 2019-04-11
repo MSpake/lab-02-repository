@@ -1,3 +1,6 @@
+const creatureTemplateSource = $('#creature-template').html();
+const creatureTemplate = Handlebars.compile(creatureTemplateSource);
+
 let allCreatures = [];
 let jsonFile = 1;
 
@@ -12,12 +15,7 @@ function Creature(creature){
 }
 
 Creature.prototype.render = function(){
-  const container = $('#creature-container').html();
-  $('#all-creatures').append(`<div id="${this.id}" class="${this.keyword}"></div>`);
-  $(`#${this.id}`).html(container);
-  $(`#${this.id}`).find('img').attr('src', this.imageURL);
-  $(`#${this.id}`).find('h2').text(`${this.title}`);
-  // $(`#${this.id}`).find('p').text(`${this.description}`);
+  $('#all-creatures').append(creatureTemplate(this));
 }
 
 Creature.prototype.idCreator = function(creature){
