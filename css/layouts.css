@@ -7,10 +7,12 @@ section {
     overflow: hidden;
     width: 90%;
     margin: auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
 }
 
 div {
-    float: left;
     width: 20%;
     height: 360px;
     padding: 0 15px;
