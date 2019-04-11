@@ -1,4 +1,5 @@
-const allCreatures = [];
+let allCreatures = [];
+let jsonFile = 1;
 
 function Creature(creature){
   this.title = creature.title;
@@ -6,9 +7,8 @@ function Creature(creature){
   this.imageURL = creature.image_url;
   this.keyword = creature.keyword;
   this.horns = creature.horns;
-  this.id = creature.title.toLowerCase().replace(/\s|'|#/g,'');
+  this.id = this.idCreator(creature);
   allCreatures.push(this);
-
 }
 
 Creature.prototype.render = function(){
@@ -17,7 +17,17 @@ Creature.prototype.render = function(){
   $(`#${this.id}`).html(container);
   $(`#${this.id}`).find('img').attr('src', this.imageURL);
   $(`#${this.id}`).find('h2').text(`${this.title}`);
-  $(`#${this.id}`).find('p').text(`${this.description}`);
+  // $(`#${this.id}`).find('p').text(`${this.description}`);
+}
+
+Creature.prototype.idCreator = function(creature){
+  let id = creature.title.toLowerCase().replace(/\s|'|#/g,'');
+  allCreatures.forEach(creature => {
+    if(creature.id === id){
+      id = id + id.length;
+    }
+  })
+  return id;
 }
 
 const keywordDropdown = (allCreatureData) => {
@@ -30,8 +40,11 @@ const keywordDropdown = (allCreatureData) => {
   keywords.forEach(keyword => {$('#keyword-select').append(`<option value="${keyword}">${keyword}</option>`);});
 }
 
-const getCreatureData = () => {
-  $.get('./data/page-1.json', 'json').then(
+const getCreatureData = (json) => {
+  allCreatures = [];
+  $('#all-creatures').html('');
+  $('#keyword-select').html('<option value=""></option>');
+  $.get(`${json}`, 'json').then(
     data => {
       data.forEach(creature => new Creature(creature));
       allCreatures.forEach(creature => creature.render());
@@ -56,6 +69,17 @@ const checkKeywords = function(){
   })
 }
 
-getCreatureData();
+const swapImages = function(){
+  if(jsonFile === 1){
+    getCreatureData('./data/page-2.json');
+    jsonFile = 2;
+  } else {
+    getCreatureData('./data/page-1.json');
+    jsonFile = 1;
+  }
+}
+
+getCreatureData('./data/page-1.json');
+$('#image-changer').on('click', swapImages);
 $('#keyword-select').on('change', checkKeywords);
 

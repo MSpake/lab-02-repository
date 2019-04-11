@@ -25,3 +25,7 @@ select{
     margin-top: 7px;
     margin-bottom: 30px;
 }
+
+button {
+    margin: 10px;
+}
