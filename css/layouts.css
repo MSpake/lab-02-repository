@@ -7,12 +7,14 @@ section {
     overflow: hidden;
     width: 90%;
     margin: auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
 }
 
 div {
-    float: left;
     width: 20%;
-    height: 360px;
+    height: 350px;
     padding: 0 15px;
 }
 
@@ -20,8 +22,19 @@ img {
     width: 100%;
 }
 
-select{
-    display: block;
+select {
     margin-top: 7px;
     margin-bottom: 30px;
 }
+
+nav {
+    display:flex;
+    justify-content: space-evenly;
+    height: 50px;
+    margin-bottom: 30px;
+}
+
+nav>fieldset {
+    width: 30%;
+}
+
